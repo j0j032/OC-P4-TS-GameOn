@@ -1,4 +1,5 @@
 import {createElement} from "../utils/dom";
+import {openModal} from "./modal";
 
 const textContent = {
     title: 'Marathon national de jeux vidéo',
@@ -12,7 +13,6 @@ export const mainContent = () => {
     const upDiv:HTMLElement = createElement('section', [{class: 'main-updiv'}], section, null)
     createElement('h1', [{class:'main-title'}], upDiv, textContent.title)
     createElement('p', [{class:'main-text'}], upDiv, textContent.text)
-    createElement('button', [{class:'main-btn'}], section, 'Je m\'inscris')
-
+    createElement('button', [{class:'main-btn'}], section, 'Je m\'inscris').addEventListener('click', openModal)
     return container
 }

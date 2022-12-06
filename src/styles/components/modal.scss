@@ -1,0 +1,14 @@
+#modal-bg{
+	position: absolute;
+	background-color: rgba(35, 39, 47, 0.38);
+	width: 100vw;
+	height: 100vh;
+}
+
+.modal{
+  &-container{
+	width: 50%;
+	height: 80vh;
+	background-color: orange;
+  }
+}
