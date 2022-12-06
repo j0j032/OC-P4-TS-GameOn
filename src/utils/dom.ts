@@ -34,8 +34,8 @@ export const createElement = (tag:string, attributes:object[], parent:(HTMLEleme
  * (for lightBox and sort medias)
  * @param {HTMLElement} el - target element html with all first child to remove
  */
-export const emptyDOM = (el: HTMLElement) => {
-    while (el.firstChild) {
+export const emptyDOM = (el: HTMLElement | null) => {
+    while (el?.firstChild) {
         el.removeChild(el.firstChild)
     }
 }
