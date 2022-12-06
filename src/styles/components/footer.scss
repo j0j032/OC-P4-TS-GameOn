@@ -1,0 +1,14 @@
+.footer{
+  &-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #16181d;
+	//background-color: #293540;
+  }
+  &-text{
+	font-size: 1.4rem;
+	font-weight: 200;
+	color: #C5C2C5;
+  }
+}

@@ -1,0 +1,29 @@
+.header{
+  &-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.2rem 2.4rem;
+	filter:  drop-shadow(0 0 20px rgba(0, 217, 255, 0.53)) invert(15%);
+  }
+  &-logo{
+	font-family: 'Phosphate', sans-serif;
+  }
+  &-nav{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 44%;
+	transition: width 300ms ease-in-out;
+	
+	&-link{
+	  text-decoration: none;
+	  color: #FFFEFC;
+	  transition: all 300ms ease-out;
+	  padding: 0.4rem 0.8rem;
+	  &:hover{
+		filter:  drop-shadow(0 0 20px rgb(0, 217, 255)) ;
+	  }
+	}
+  }
+}

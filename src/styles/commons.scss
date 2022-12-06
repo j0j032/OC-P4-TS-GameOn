@@ -1,0 +1,31 @@
+*, ::before, :after {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+}
+html{
+  font-size: 62.5%;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  background-color: #23272f;
+  color: #fffefc;
+  font-size: 1.6rem;
+  height: 100vh;
+}
+
+header{
+  height: 7.2rem;
+}
+
+main{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer{
+  height: 5.4rem;
+}
