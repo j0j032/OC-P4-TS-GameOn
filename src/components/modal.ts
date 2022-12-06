@@ -15,7 +15,7 @@ interface inputCheckConfig {
     id:string;
 }
 
-const inputsConfig: inputConfig[] = [
+const fieldInputsConfig: inputConfig[] = [
     {
         name: 'firstname',
         type: 'text',
@@ -88,10 +88,10 @@ const checkInputsConfig: inputCheckConfig[] = [
 
 
 
-const input = (name:string, type:string, labelText:string, error:string) => {
-    const container: HTMLElement = createElement('div', [{class:'input-wrapper--text'}], null, null)
-    createElement('label', [{for:name},{class:'label-text'}], container, labelText)
-    createElement('input', [{type},{name},{id:name},{class:'input-text'}], container, null)
+const fieldInput = (name:string, type:string, labelText:string, error:string) => {
+    const container: HTMLElement = createElement('div', [{class:'wrapper--field'}], null, null)
+    createElement('label', [{for:name},{class:'field--label'}], container, labelText)
+    createElement('input', [{type},{name},{id:name},{class:'field--input'}], container, null)
         .addEventListener('input', getCorrectValue )
     createElement('span', [{class:'error'}], container,error)
 
@@ -99,44 +99,49 @@ const input = (name:string, type:string, labelText:string, error:string) => {
 }
 
 const radioInput = (id:string, value:string) => {
-    const container = createElement('div',[{class:'input-inline--wrapper'}],null, null)
-    createElement('input', [{type:'radio'},{name:'location'},{value},{id},{class:'input-radio'}], container, null)
+    const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, value)
+    createElement('input', [{type:'radio'},{name:'location'},{value},{id},{class:'checkbox'}], label, null)
         .addEventListener('input', getCorrectValue )
-    const label: HTMLElement = createElement('label', [{for:id},{class:'label-radio'}], container, value)
-    createElement('span',[{class:'input-radio--icon'}], label, null)
-    createElement('span', [{class:'error'}], container,'Vous devez selectionner une ville')
+    createElement('span',[{class:'checkmark'}], label, null)
 
-    return container
+
+    return label
 }
 
 const checkInput = (id:string, value:string) => {
-    const container = createElement('div',[{class:'input-inline--wrapper'}],null, null)
-    createElement('input', [{id},{type:'checkbox'},{class:'input-check'}], container, null)
+    const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, null)
+    createElement('input', [{id},{type:'checkbox'},{class:'checkbox check'}], label, null)
         .addEventListener('input', getCorrectValue )
-    const label: HTMLElement = createElement('label', [{for:id},{class:'label-check'}], container, value)
-    createElement('span',[{class:'input-check--text'}], label, value)
+    createElement('span',[{class:'checkmark check'}], label, value)
 
-    return container
+    return label
 }
 
 const stopPropagation = (e: MouseEvent) => e.stopPropagation()
 
 
 const modalForm = () => {
-    const formContainer:HTMLElement = createElement('div', [{class: 'modal-container'}], null, null)
+    const formContainer:HTMLElement = createElement('div', [{class: 'container--modal'}], null, null)
     const form:HTMLElement = createElement('form', [{class: 'form'}], formContainer, null)
 
-    inputsConfig.map(el=> form.appendChild(input(el.name, el.type, el.labelText, el.error)))
+    // Inputs field
+    fieldInputsConfig.map(el=> form.appendChild(fieldInput(el.name, el.type, el.labelText, el.error)))
 
-    const radiosInputWrapper = createElement('div', [{class:'input-radio--wrapper'}], form, null)
+    // Inputs Radio
+    const radioSection = createElement('div',[{class:'container--radio'}], form, null)
+    createElement('p', [{class:'radio-heading'}], radioSection,'A quel tournoi souhaitez-vous participer cette année ?')
+    const radiosInputWrapper = createElement('div', [{class:'wrapper--radio'}], radioSection, null)
     radioInputsConfig.map(el=> radiosInputWrapper.appendChild(radioInput(el.id, el.value)))
+    createElement('span', [{class:'error'}], radioSection,'Veuillez devez selectionner une ville')
 
-    const checkInputWrapper = createElement('div', [{class:'input-check--wrapper'}], form, null)
-    checkInputsConfig.map(el=> checkInputWrapper.appendChild(checkInput(el.id, el.value)))
-
-    createElement('input', [{class:'submit-btn'},{type: 'submit'},{value:'c\'est parti'}], formContainer, null)
-        .addEventListener('click',submit)
+    // Inputs checkBox
+    const checkSection = createElement('div', [{class:'container--check'}], form, null)
+    checkInputsConfig.map(el=> checkSection.appendChild(checkInput(el.id, el.value)))
     createElement('span', [{class:'error'}], form,'Veuillez accepter les conditions générales')
+
+    // Submit button
+    createElement('input', [{class:'btn'},{type: 'submit'},{value:'c\'est parti'}], formContainer, null)
+        .addEventListener('click',submit)
 
     formContainer.addEventListener('click', stopPropagation)
     return formContainer

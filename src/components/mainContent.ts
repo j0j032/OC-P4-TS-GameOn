@@ -10,9 +10,9 @@ export const mainContent = () => {
 
     const container:HTMLElement = createElement('main', [{class: 'main-container'}], null, null)
     const section:HTMLElement = createElement('section', [{class: 'main-content'}], container, null)
-    const upDiv:HTMLElement = createElement('section', [{class: 'main-updiv'}], section, null)
-    createElement('h1', [{class:'main-title'}], upDiv, textContent.title)
-    createElement('p', [{class:'main-text'}], upDiv, textContent.text)
-    createElement('button', [{class:'main-btn'}], section, 'Je m\'inscris').addEventListener('click', openModal)
+    createElement('h1', [{class:'main-title'}], section, textContent.title)
+    createElement('p', [{class:'main-text'}], section, textContent.text)
+    createElement('button', [{class:'btn'}], section, 'Je m\'inscris').addEventListener('click', openModal)
+    createElement('img',[{src:'https://p14hrnet.s3.eu-west-3.amazonaws.com/gameon.jpg'},{alt:'photo de salle de jeux'}], container, null)
     return container
 }
