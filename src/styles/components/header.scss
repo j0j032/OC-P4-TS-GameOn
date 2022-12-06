@@ -8,6 +8,7 @@
   }
   &-logo{
 	font-family: 'Phosphate', sans-serif;
+	animation: __neon 800ms ease-in-out infinite;
   }
   &-nav{
 	display: flex;
@@ -18,12 +19,26 @@
 	
 	&-link{
 	  text-decoration: none;
-	  color: #FFFEFC;
+	  color: #fffefc;
 	  transition: all 300ms ease-out;
 	  padding: 0.4rem 0.8rem;
+	  border-radius: 8px;
+	  font-weight: 600;
 	  &:hover{
 		filter:  drop-shadow(0 0 20px rgb(0, 217, 255)) ;
 	  }
 	}
   }
+}
+
+@keyframes __neon {
+  
+  from{
+	filter:  drop-shadow(0 0 20px rgba(0, 217, 255, 0.53)) invert(15%);
+  }
+  
+  to{
+	filter:  drop-shadow(0 0 20px rgba(0, 217, 255, 0.64)) invert(15%);
+  }
+  
 }
