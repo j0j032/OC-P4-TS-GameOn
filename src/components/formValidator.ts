@@ -1,3 +1,4 @@
+import {createElement, emptyDOM} from "../utils/dom";
 
 const namesRegex: RegExp = /^([a-zA-Z]){2,}$/;
 const emailRegex: RegExp = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -9,7 +10,6 @@ const isValidDate = (value:string) => new Date(value) < new Date() && value !== 
 
 const atLeastOneLocationIsChecked = ():boolean | null => {
     const checkedRadioButtons = document.querySelector("input[name='location']:checked");
-    console.log("location selected = ", checkedRadioButtons !== null);
     return checkedRadioButtons !== null;
 };
 
@@ -41,32 +41,67 @@ export const inputCheck = (e:Event, name:string ) =>{
     }
 }
 
+export const removeSubmitErr = (e:Event) => {
+    const errorContainer: HTMLElement | null = document.querySelector('.submit-errors')
+    const target = e.target as HTMLInputElement
+
+    if (target.name === 'location'){
+        if(errorContainer?.classList.contains('location')) errorContainer?.classList.remove('location')
+        if(errorContainer?.classList.contains('both')) errorContainer?.classList.remove('both')
+    }
+    if (target.name === 'checkbox1'){
+        if(errorContainer?.classList.contains('condition')) errorContainer?.classList.remove('condition')
+        if(errorContainer?.classList.contains('both')) errorContainer?.classList.remove('both')
+    }
+}
+
+
 const formChecking = ():boolean | null => {
-    const firstnameInput = (document.getElementById("firstname") as HTMLInputElement).value
-    const lastnameInput = (document.getElementById("lastname") as HTMLInputElement).value
-    const emailInput = (document.getElementById("email") as HTMLInputElement).value
-    const birthdateInput = (document.getElementById("birthdate") as HTMLInputElement).value
-    const quantityInput = (document.getElementById("quantity") as HTMLInputElement).value
+    const firstnameInput = (document.getElementById("firstname") as HTMLInputElement)
+    const lastnameInput = (document.getElementById("lastname") as HTMLInputElement)
+    const emailInput = (document.getElementById("email") as HTMLInputElement)
+    const quantityInput = (document.getElementById("quantity") as HTMLInputElement)
+    const birthdateInput = (document.getElementById("birthdate") as HTMLInputElement)
     const userConditionsInput = (document.getElementById('checkbox1') as HTMLInputElement)
+    const errorContainer: HTMLElement | null = document.querySelector('.submit-errors')
+
+    const inputs: HTMLInputElement[] = [firstnameInput, lastnameInput, emailInput, quantityInput, birthdateInput]
+
+    if(!atLeastOneLocationIsChecked()){
+        errorContainer?.classList.add('location')
+    }
+
+    if(!userConditionsInput.checked){
+        errorContainer?.classList.add('condition')
+    }
+
+    if(!userConditionsInput.checked && !atLeastOneLocationIsChecked()){
+        errorContainer?.classList.add('both')
+    }
+
+    inputs.forEach((el)=>{
+        if(el.value === '') el.classList.add('error')
+    })
+
 
     return (
-        isValid(namesRegex, firstnameInput)
-        && isValid(namesRegex, lastnameInput)
-        && isValid(namesRegex, lastnameInput)
-        && isValid(emailRegex, emailInput)
-        && isValidDate(birthdateInput)
-        && isValid(numberRegex, quantityInput)
+        isValid(namesRegex, firstnameInput.value)
+        && isValid(namesRegex, lastnameInput.value)
+        && isValid(namesRegex, lastnameInput.value)
+        && isValid(emailRegex, emailInput.value)
+        && isValidDate(birthdateInput.value)
+        && isValid(numberRegex, quantityInput.value)
         && atLeastOneLocationIsChecked()
         && userConditionsInput.checked
     )
 }
 
 
-
 export const submit = (e:MouseEvent) => {
-    const form = document.querySelector('.form')
+    const ModalBG:(HTMLElement | null) = document.getElementById('modal-bg')
     e.preventDefault()
-    console.log(formChecking())
-    if (formChecking()) console.log('CHECKED')
-    console.log(form)
+    if (formChecking()){
+        emptyDOM(ModalBG)
+        createElement('div', [{class:'submit-succeed'}], ModalBG, 'Merci, le formulaire a bien été envoyé')
+    }
 }

@@ -1,6 +1,6 @@
 import {createElement} from "../utils/dom";
 import {App} from "../utils/domLinker";
-import { inputCheck, submit} from "./formValidator";
+import {inputCheck, removeSubmitErr, submit} from "./formValidator";
 
 interface inputConfig {
     name: string;
@@ -101,7 +101,7 @@ const fieldInput = (name:string, type:string, labelText:string, error:string) =>
 const radioInput = (id:string, value:string) => {
     const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, value)
     createElement('input', [{type:'radio'},{name:'location'},{value},{id},{class:'checkbox'}], label, null)
-       .addEventListener('input', (e)=>inputCheck(e,'location') )
+        .addEventListener('click', removeSubmitErr)
     createElement('span',[{class:'checkmark'}], label, null)
 
 
@@ -111,7 +111,7 @@ const radioInput = (id:string, value:string) => {
 const checkInput = (id:string, value:string) => {
     const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, null)
     createElement('input', [{id},{type:'checkbox'},{class:'checkbox check'},{name:id}], label, null)
-        .addEventListener('input', (e)=>inputCheck(e,id) )
+        .addEventListener('click',removeSubmitErr)
     createElement('span',[{class:'checkmark check'}], label, value)
 
     return label
@@ -132,20 +132,22 @@ const modalForm = () => {
     createElement('p', [{class:'radio-heading'}], radioSection,'A quel tournoi souhaitez-vous participer cette année ?')
     const radiosInputWrapper = createElement('div', [{class:'wrapper--radio'}], radioSection, null)
     radioInputsConfig.map(el=> radiosInputWrapper.appendChild(radioInput(el.id, el.value)))
-    createElement('span', [{class:'error'}], radioSection,'Veuillez devez selectionner une ville')
 
     // Inputs checkBox
     const checkSection = createElement('div', [{class:'container--check'}], form, null)
     checkInputsConfig.map(el=> checkSection.appendChild(checkInput(el.id, el.value)))
-    createElement('span', [{class:'error'}], form,'Veuillez accepter les conditions générales')
 
     // Submit button
-    createElement('input', [{class:'btn'},{type: 'submit'},{value:'c\'est parti'}], formContainer, null)
+    const submitContainer = createElement('div', [{class:'container--submit'}], formContainer, null)
+    createElement('span', [{class:'submit-errors'}],submitContainer,null)
+    createElement('input', [{class:'btn'},{type: 'submit'},{value:'c\'est parti'}], submitContainer, null)
         .addEventListener('click',submit)
 
     formContainer.addEventListener('click', stopPropagation)
     return formContainer
 }
+
+
 
 const modal = () => {
     const background:HTMLElement = createElement('div', [{id: 'modal-bg'}], null, null)
