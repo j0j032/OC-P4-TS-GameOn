@@ -10,6 +10,7 @@ const init = () => {
     Main?.appendChild(mainContent())
     Footer?.appendChild(footer())
 }
+
 init()
 
 

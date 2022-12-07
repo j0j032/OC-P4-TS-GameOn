@@ -1,6 +1,6 @@
 import {createElement} from "../utils/dom";
 import {App} from "../utils/domLinker";
-import {getCorrectValue, submit} from "./formValidator";
+import { inputCheck, submit} from "./formValidator";
 
 interface inputConfig {
     name: string;
@@ -92,8 +92,8 @@ const fieldInput = (name:string, type:string, labelText:string, error:string) =>
     const container: HTMLElement = createElement('div', [{class:'wrapper--field'}], null, null)
     createElement('label', [{for:name},{class:'field--label'}], container, labelText)
     createElement('input', [{type},{name},{id:name},{class:'field--input'}], container, null)
-        .addEventListener('input', getCorrectValue )
-    createElement('span', [{class:'error'}], container,error)
+        .addEventListener('input', (e)=>inputCheck(e,name) )
+    createElement('span', [{class:`error ${name}`}], container,error)
 
     return container
 }
@@ -101,7 +101,7 @@ const fieldInput = (name:string, type:string, labelText:string, error:string) =>
 const radioInput = (id:string, value:string) => {
     const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, value)
     createElement('input', [{type:'radio'},{name:'location'},{value},{id},{class:'checkbox'}], label, null)
-        .addEventListener('input', getCorrectValue )
+       .addEventListener('input', (e)=>inputCheck(e,'location') )
     createElement('span',[{class:'checkmark'}], label, null)
 
 
@@ -110,8 +110,8 @@ const radioInput = (id:string, value:string) => {
 
 const checkInput = (id:string, value:string) => {
     const label: HTMLElement = createElement('label', [{for:id},{class:'warpper--label'}], null, null)
-    createElement('input', [{id},{type:'checkbox'},{class:'checkbox check'}], label, null)
-        .addEventListener('input', getCorrectValue )
+    createElement('input', [{id},{type:'checkbox'},{class:'checkbox check'},{name:id}], label, null)
+        .addEventListener('input', (e)=>inputCheck(e,id) )
     createElement('span',[{class:'checkmark check'}], label, value)
 
     return label
@@ -122,7 +122,7 @@ const stopPropagation = (e: MouseEvent) => e.stopPropagation()
 
 const modalForm = () => {
     const formContainer:HTMLElement = createElement('div', [{class: 'container--modal'}], null, null)
-    const form:HTMLElement = createElement('form', [{class: 'form'}], formContainer, null)
+    const form:HTMLElement = createElement('form', [{class: 'form'},{action:"index.html"},{method:'get'}], formContainer, null)
 
     // Inputs field
     fieldInputsConfig.map(el=> form.appendChild(fieldInput(el.name, el.type, el.labelText, el.error)))
