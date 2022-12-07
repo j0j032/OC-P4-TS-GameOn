@@ -10,11 +10,16 @@ const textContent = {
 
 export const mainContent = () => {
 
-    const container:HTMLElement = createElement('main', [{class: 'main-container'}], null, null)
-    const section:HTMLElement = createElement('section', [{class: 'main-content'}], container, null)
-    createElement('h1', [{class:'main-title'}], section, textContent.title)
-    createElement('p', [{class:'main-text'}], section, textContent.text)
+    const mainContainer:HTMLElement = createElement('main', [{class: 'main-container'}], null, null)
+
+    const leftContainer = createElement('section', [{class: 'main-container--left'}], mainContainer, null)
+    const section:HTMLElement = createElement('div', [{class: 'text-box'}], leftContainer, null)
+    createElement('h1', [{class:'text-title'}], section, textContent.title)
+    createElement('p', [{class:'text-text'}], section, textContent.text)
     createElement('button', [{class:'btn'}], section, 'Je m\'inscris').addEventListener('click', openModal)
-    createElement('img',[{src: img},{alt:'photo de salle de jeux'}], container, null)
-    return container
+
+    const rightContainer: HTMLElement = createElement('section', [{class:'main-container--right'}], mainContainer, null)
+    createElement('img',[{src: img},{alt:'photo de salle de jeux'}], rightContainer, null)
+
+    return mainContainer
 }
