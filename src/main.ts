@@ -1,4 +1,4 @@
-import './styles/styles.scss'
+import './styles/index.scss'
 import {Footer, Header, Main} from "./utils/domLinker";
 import {header} from "./components/header";
 import {mainContent} from "./components/mainContent";

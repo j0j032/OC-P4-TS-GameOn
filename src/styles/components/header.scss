@@ -14,8 +14,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 44%;
 	transition: width 300ms ease-in-out;
+	@include tablet{
+	  display: none;
+	}
 	
 	&-link{
 	  text-decoration: none;
@@ -29,6 +31,58 @@
 	  }
 	}
   }
+}
+
+.iconBtn {
+  display: none;
+  @include tablet{
+	display: block;
+  }
+  height: 80px;
+  width: 80px;
+  margin: 0px;
+  position: relative;
+}
+.lignes-container {
+  width: 25px;
+  height: 21px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.lignes {
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background: #FFFEFC;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+}
+.lignes:nth-child(1) {
+  top: 0px;
+}
+.lignes:nth-child(2) {
+  top: 9px;
+}
+.lignes:nth-child(3) {
+  top: 18px;
+}
+.iconBtn.active .lignes:nth-child(1) {
+  top: 9px;
+  transform: rotate(135deg);
+  background: #fe142f;
+}
+.iconBtn.active .lignes:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+  background: #fe142f;
+}
+.iconBtn.active .lignes:nth-child(3) {
+  top: 9px;
+  transform: rotate(-135deg);
+  background: #fe142f;
 }
 
 @keyframes __neon {

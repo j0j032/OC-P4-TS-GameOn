@@ -22,7 +22,6 @@ header{
 
 main{
   flex-grow: 1;
-  display: flex;
 }
 footer{
   height: 5.4rem;
@@ -40,7 +39,6 @@ footer{
   transition: all 300ms ease-in-out;
   background-color: #159ECA;
   color: #FFFEFC;
-  align-self: flex-end;
   &:hover{
     filter:  drop-shadow(0 0 20px rgba(0, 217, 255, 0.22)) ;
   }
